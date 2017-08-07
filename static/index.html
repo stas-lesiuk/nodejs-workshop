@@ -9,7 +9,12 @@
 <input type="text" id="filter">
 <div id="productsRoot">
 </div>
-<div id="secondRoot"></div>
+<form action="/api/products" method="post">
+    <input name="title" placeholder="title" />
+    <input name="desc" placeholder="description" />
+    <input name="price" placeholder="price" type="number" />
+    <input placeholder="Submit" type="submit" />
+</form>
 </body>
 <script
         src="http://code.jquery.com/jquery-3.2.1.min.js"
