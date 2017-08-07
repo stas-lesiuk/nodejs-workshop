@@ -30,4 +30,4 @@ async function serveFile (file, mime, res) {
   }
 }
 
-module.exports = serveFile;
+module.exports = serveFile

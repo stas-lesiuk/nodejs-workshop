@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 class Products {
-  constructor() {
+  constructor () {
     fs.readFile('./static/products.json', 'utf8', (err, content) => {
       if (err) {
         console.log(err)
@@ -11,19 +11,17 @@ class Products {
     })
   }
 
-  get data() {
+  get data () {
     return this._data
   }
 
-  addProduct(product) {
-    console.log('adding product', product)
+  addProduct (product) {
     this._data.push(product)
   }
 
-  removeProduct(title) {
+  removeProduct (title) {
     this._data.splice(1, this._data.indexOf(product => product.title === title))
   }
-
 }
 
-module.exports = Products;
+module.exports = Products

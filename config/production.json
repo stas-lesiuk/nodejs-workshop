@@ -1,0 +1,4 @@
+{
+  "__": "Na produkcji nadpisujemy tylko środowisko",
+  "env": "production"
+}

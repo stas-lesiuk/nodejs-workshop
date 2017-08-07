@@ -1,0 +1,5 @@
+{
+  "__": "Umieszczamy w konfigu domyślny port",
+  "port": 3000,
+  "env": "development"
+}
