@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #productsRoot {
+            width: 60%;
+            margin: 0 auto;
+        }
+        .product {
+            box-sizing: border-box;
+            background: lightgrey;
+            display: block;
+            float: left;
+            width: 45%;
+            margin: 0 2.5% 20px;
+            padding: 20px;
+        }
+        
+        .product:nth-child(2n + 1) {
+            clear: both;
+        }
+
+        .product__price {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="filter">
+<div id="productsRoot">
+</div>
+<div id="secondRoot"></div>
+</body>
+<script
+        src="http://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script>
+    const products = [
+      {
+        title: 'prod 1',
+        desc: `long desc 1 asdasd asdsad fsdf
+        some more text
+        third line
+        more and more text`,
+        img: 'https://xpla.org/ext/lorempixel/250/250/technics/1/',
+        price: 200
+      },
+      {
+        title: 'product 2',
+        desc: 'desc 2',
+        img: 'https://xpla.org/ext/lorempixel/250/250/technics/2/',
+        price: 500
+      },
+      {
+        title: 'product no 3',
+        desc: `long desc 1 asdasd asdsad fsdf
+        some more text
+        third line
+        more and more text`,
+        img: 'https://xpla.org/ext/lorempixel/250/250/technics/3/',
+        price: 350
+      }
+    ];
+    const productsRoot = $('#productsRoot');
+    const filter = $('#filter');
+
+    filter.on('input', function (event) {
+      const search = event.target.value;
+      displayProducts(products.filter(product => product.title.includes(search)));
+    });
+
+    displayProducts(products);
+
+    function displayProducts(products) {
+      productsRoot.empty();
+      products.forEach(product => {
+        const node = document.createElement('div');
+        const title = document.createElement('div');
+        const desc = document.createElement('div');
+        const more = document.createElement('div');
+        const img = document.createElement('img');
+        const price = document.createElement('div');
+
+        node.className = 'product product--small';
+        title.innerHTML = product.title;
+        desc.innerHTML = product.desc;
+        more.innerHTML = 'Read more';
+        more.click(function () {
+          console.log('click more ');
+          node.className = 'product';
+        });
+        img.src = product.img;
+        price.innerHTML = product.price + ' EUR';
+        price.className = 'product__price';
+
+        node.appendChild(img);
+        node.appendChild(title);
+        node.appendChild(desc);
+        node.appendChild(more);
+        node.appendChild(price);
+
+        productsRoot.append(node);
+      });
+
+
+    }
+</script>
+</html>
