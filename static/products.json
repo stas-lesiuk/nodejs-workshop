@@ -1,0 +1,20 @@
+[
+  {
+    "title": "prod 1",
+    "desc": "long desc 1 asdasd asdsad fsdf some more text third line more and more text",
+    "img": "https://xpla.org/ext/lorempixel/250/250/technics/1/",
+    "price": 200
+  },
+  {
+    "title": "product 2",
+    "desc": "desc 2",
+    "img": "https://xpla.org/ext/lorempixel/250/250/technics/2/",
+    "price": 500
+  },
+  {
+    "title": "product no 3",
+    "desc": "long desc 1 asdasd asdsad fsdf some more text third line more and more text",
+    "img": "https://xpla.org/ext/lorempixel/250/250/technics/3/",
+    "price": 350
+  }
+]

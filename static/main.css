@@ -1,0 +1,25 @@
+#productsRoot {
+    width: 60%;
+    margin: 0 auto;
+}
+.product {
+    box-sizing: border-box;
+    background: lightgrey;
+    display: block;
+    float: left;
+    width: 45%;
+    margin: 0 2.5% 20px;
+    padding: 20px;
+}
+
+.product.product--small .product__desc {
+    display: none;
+}
+
+.product:nth-child(2n + 1) {
+    clear: both;
+}
+
+.product__price {
+    text-align: right;
+}
