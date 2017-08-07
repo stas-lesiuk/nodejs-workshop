@@ -26,13 +26,28 @@ describe('Server', () => {
       .expect('Content-Type', /html/)
   })
 
-  it('should serve list of activities at /api/products', () => {
+  it('should serve list of activities at /api/products GET', () => {
     return request(app)
       .get('/api/products')
       .expect(200)
       .expect('Content-Type', /json/)
       .then(response => {
         expect(response.body.length).to.equal(3)
+      })
+  })
+
+  it('should add new activity via POST /api/products', () => {
+    return request(app)
+      .post('/api/products')
+      .send('name=NewProduct')
+      .send('price=300')
+      .expect(303)
+      .then(res => {
+        return request(app)
+          .get('/api/products')
+          .then(res => {
+            expect(res.body.length).to.equal(4)
+          })
       })
   })
 })
