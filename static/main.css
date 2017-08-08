@@ -1,7 +1,12 @@
+img {
+    max-width: 100%;
+}
+
 #productsRoot {
     width: 60%;
     margin: 0 auto;
 }
+
 .product {
     box-sizing: border-box;
     background: lightgrey;
@@ -20,6 +25,16 @@
     clear: both;
 }
 
+.product__title {
+    font-size: 1.75em;
+}
+
+.product__desc {
+    margin-bottom: 20px;
+}
+
 .product__price {
+    font-size: 1.25em;
+    font-weight: bold;
     text-align: right;
 }
