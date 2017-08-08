@@ -1,5 +1,4 @@
 const fs = require('fs')
-// const Sequelize = require('sequelize')
 const boom = require('boom')
 
 class Products {
@@ -13,11 +12,33 @@ class Products {
     })
   }
 
-  get data () {
-    return this._data
+  async length () {
+    return this._data.length
   }
 
-  addProduct (product) {
+  async getData (limit, offset, fields) {
+    return this._data
+      .slice(offset, offset + limit)
+      .map(product => {
+        if (!fields) {
+          return product
+        }
+        const obj = {}
+        fields.map(key => {
+          obj[key] = product[key]
+        })
+        return obj
+      })
+  }
+
+  async getProduct(id) {
+    if(!id) {
+      throw boom.badRequest('`id` is empty!')
+    }
+    return this._data.find(product => product.id === id)
+  }
+
+  async addProduct (product) {
     if (!product.title) {
       throw boom.badRequest('`title` is missing')
     }
@@ -36,7 +57,7 @@ class Products {
     return newProduct
   }
 
-  removeProduct (title) {
+  async removeProduct (title) {
     this._data.splice(this._data.indexOf(product => product.title === title), 1)
   }
 }
