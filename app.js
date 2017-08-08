@@ -33,6 +33,11 @@ app.post('/api/products', bodyParser.urlencoded({extended: false}), (req, res) =
   res.redirect(303, '/')
 })
 
+app.delete('/api/products', bodyParser.urlencoded({extended: false}), (req, res) => {
+  products.removeProduct(req.body.title)
+  res.redirect(303, '/')
+})
+
 app.get('/version', (req, res) => {
   res.set('Content-Type', 'application/json')
     .json({

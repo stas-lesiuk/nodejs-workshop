@@ -50,4 +50,18 @@ describe('Server', () => {
           })
       })
   })
+
+  it('should add new activity via POST /api/products', () => {
+    return request(app)
+      .delete('/api/products')
+      .send('title=NewProduct')
+      .expect(303)
+      .then(res => {
+        return request(app)
+          .get('/api/products')
+          .then(res => {
+            expect(res.body.length).to.equal(3)
+          })
+      })
+  })
 })

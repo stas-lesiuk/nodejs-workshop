@@ -20,7 +20,9 @@ class Products {
   }
 
   removeProduct (title) {
-    this._data.splice(1, this._data.indexOf(product => product.title === title))
+    console.log('removing product, prev len', this._data.length)
+    this._data.splice(this._data.indexOf(product => product.title === title), 1)
+    console.log('after removing product, prev len', this._data.length)
   }
 }
 

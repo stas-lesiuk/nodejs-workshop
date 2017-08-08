@@ -30,6 +30,7 @@
     "node-notifier": "^5.1.2",
     "nodemon": "^1.11.0",
     "response-time": "^2.3.2",
+    "sequelize": "^4.4.2",
     "standard": "^10.0.3"
   },
   "devDependencies": {
