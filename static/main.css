@@ -1,14 +1,34 @@
+* {
+    box-sizing: border-box;
+}
+
 img {
     max-width: 100%;
 }
 
+input[type=text], input[type=number] {
+    width: 100%;
+}
+
+.sidebar {
+    width: 36%;
+    float: left;
+    margin-right: 4%;
+}
+
+.sidebar__block {
+    display: block;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+
 #productsRoot {
     width: 60%;
-    margin: 0 auto;
+    float: left;
 }
 
 .product {
-    box-sizing: border-box;
     background: lightgrey;
     display: block;
     float: left;

@@ -20,7 +20,7 @@ notifier.notify({
   'message': `Environment is: ${config.get('env')}`
 })
 
-app.get('/api/products', (req, res) => {
+app.get('/api/v1/products', (req, res) => {
   const time = process.hrtime(req.startTime)
   const ms = time[ 0 ] * 1e3 + time[ 1 ] * 1e-6
   res.set('Content-Type', 'application/json')
@@ -28,12 +28,15 @@ app.get('/api/products', (req, res) => {
     .json(products.data)
 })
 
-app.post('/api/products', bodyParser.urlencoded({extended: false}), (req, res) => {
-  products.addProduct(req.body)
-  res.redirect(303, '/')
+app.post('/api/v1/products', bodyParser.json(), (req, res) => {
+  const product = products.addProduct(req.body)
+  res
+    .status(201)
+    .set('Content-Location', `/v1/api/activities/${product.id}`)
+    .json(product)
 })
 
-app.delete('/api/products', bodyParser.urlencoded({extended: false}), (req, res) => {
+app.delete('/api/v1/products', bodyParser.json(), (req, res) => {
   products.removeProduct(req.body.title)
   res.redirect(303, '/')
 })
@@ -48,6 +51,23 @@ app.get('/version', (req, res) => {
 
 app.post('/crash', () => {
   throw new Error('Crashing!')
+})
+
+app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next()
+  }
+
+  if (!err.isBoom) {
+    return next(err)
+  }
+
+  res
+    .status(err.output.statusCode)
+    .json({
+      code: err.output.statusCode,
+      message: err.message
+    })
 })
 
 if (config.get('env') !== 'production') {

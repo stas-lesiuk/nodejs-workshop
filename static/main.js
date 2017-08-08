@@ -1,13 +1,46 @@
 let products = []
+const productsURL = 'api/v1/products'
 const productsRoot = $('#productsRoot')
 const filter = $('#filter')
+const addProduct = $('#add-product')
+const productTitle = $('#product-title')
+const productDesc = $('#product-desc')
+const productPrice = $('#product-price')
+
+init()
 
 filter.on('input', function (event) {
   const search = event.target.value
   displayProducts(products.filter(product => product.title.includes(search)))
 })
 
-displayProducts(products)
+addProduct.click(function () {
+  const body = {
+    title: productTitle.val(),
+    desc: productDesc.val(),
+    price: productPrice.val()
+  }
+  console.log('sendind data: ', body)
+  window.fetch(productsURL, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'post',
+    body: JSON.stringify(body)
+  }).then(data => {
+    console.log('received data', data)
+    init()
+  })
+})
+
+function init() {
+  window.fetch(productsURL)
+    .then(res => res.json())
+    .then(prods => {
+      products = prods
+      displayProducts(products)
+    })
+}
 
 function displayProducts (products) {
   productsRoot.empty()
@@ -38,10 +71,3 @@ function displayProducts (products) {
     productsRoot.append(node)
   })
 }
-
-window.fetch('api/products')
-  .then(res => res.json())
-  .then(prods => {
-    products = prods
-    displayProducts(products)
-  })

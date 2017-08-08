@@ -6,15 +6,17 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<input type="text" id="filter">
-<div id="productsRoot">
-</div>
-<form action="/api/products" method="post">
-    <input name="title" placeholder="title" />
-    <input name="desc" placeholder="description" />
-    <input name="price" placeholder="price" type="number" />
-    <input placeholder="Submit" type="submit" />
-</form>
+<aside class="sidebar">
+    <input type="text" id="filter" class="sidebar__block"/>
+    <form action="/api/products" method="post" class="sidebar__block">
+        <input name="title" placeholder="title" type="text" id="product-title"/>
+        <input name="desc" placeholder="description" type="text" id="product-desc"/>
+        <input name="price" placeholder="price" type="number" id="product-price"/>
+        <input value="Submit" type="button" id="add-product" />
+    </form>
+</aside>
+<section id="productsRoot">
+</section>
 </body>
 <script
         src="http://code.jquery.com/jquery-3.2.1.min.js"
