@@ -25,7 +25,7 @@ class Products {
       throw boom.badRequest('`price` is missing')
     }
     if (Object.keys(product).length > 3) {
-      throw boom.badRequest(`Extra fields given: ${Object.keys(req.body)}`)
+      throw boom.badRequest(`Extra fields given: ${Object.keys(product)}`)
     }
     const id = this._data.length + 1
     const newProduct = Object.assign({}, product, {

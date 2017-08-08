@@ -33,7 +33,7 @@ addProduct.click(function () {
   })
 })
 
-function init() {
+function init () {
   window.fetch(productsURL)
     .then(res => res.json())
     .then(prods => {

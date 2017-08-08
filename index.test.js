@@ -28,7 +28,7 @@ describe('Server', () => {
 
   it('should serve list of activities at /api/products GET', () => {
     return request(app)
-      .get('/api/products')
+      .get('/api/v1/products')
       .expect(200)
       .expect('Content-Type', /json/)
       .then(response => {
@@ -36,31 +36,37 @@ describe('Server', () => {
       })
   })
 
-  it('should add new activity via POST /api/products', () => {
+  it('should fail to add new product via POST /api/products with no title', () => {
     return request(app)
-      .post('/api/products')
-      .send('name=NewProduct')
-      .send('price=300')
-      .expect(303)
+      .post('/api/v1/products')
+      .send({
+        desc: 'Test',
+        price: 123
+      })
       .then(res => {
+        expect(res.body.code).to.equal(400)
+        expect(res.body.message).to.equal('`title` is missing')
         return request(app)
-          .get('/api/products')
+          .get('/api/v1/products')
           .then(res => {
-            expect(res.body.length).to.equal(4)
+            expect(res.body.length).to.equal(3)
           })
       })
   })
 
-  it('should add new activity via POST /api/products', () => {
+  it('should success to add new product via POST /api/products', () => {
     return request(app)
-      .delete('/api/products')
-      .send('title=NewProduct')
-      .expect(303)
+      .post('/api/v1/products')
+      .send({
+        title: 'Test',
+        price: 123
+      })
+      .expect(201)
       .then(res => {
         return request(app)
-          .get('/api/products')
+          .get('/api/v1/products')
           .then(res => {
-            expect(res.body.length).to.equal(3)
+            expect(res.body.length).to.equal(4)
           })
       })
   })

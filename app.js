@@ -44,9 +44,9 @@ app.delete('/api/v1/products', bodyParser.json(), (req, res) => {
 app.get('/version', (req, res) => {
   res.set('Content-Type', 'application/json')
     .json({
-    version: require('./package.json').version,
-    env: config.get('env')
-  })
+      version: require('./package.json').version,
+      env: config.get('env')
+    })
 })
 
 app.post('/crash', () => {
