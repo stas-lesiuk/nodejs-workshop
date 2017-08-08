@@ -5,8 +5,11 @@ const expect = require('chai').expect
 
 // 3/ Możemy przetestować pod-aplikację zupełnie niezależnie.
 const products = require('./products')
+const convertBoomErrors = require('../utils').convertBoomErrors
+
 const app = express()
 app.use(products)
+app.use(convertBoomErrors)
 
 describe('Products', () => {
 
@@ -28,7 +31,8 @@ describe('Products', () => {
         price: 123
       })
       .then(res => {
-        expect(res.body.code).to.equal(400)
+        console.warn(res.body, res.statusCode)
+        expect(res.body.statusCode).to.equal(400)
         expect(res.body.message).to.equal('`title` is missing')
         return request(app)
           .get('/')
@@ -42,7 +46,7 @@ describe('Products', () => {
     return request(app)
       .post('/')
       .send({
-        title: 'Test',
+        title: 'NewProduct',
         price: 123
       })
       .expect(201)

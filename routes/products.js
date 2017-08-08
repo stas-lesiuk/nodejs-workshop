@@ -14,7 +14,7 @@ class ProductRoutes {
     this.router = Router()
 
     this.router.route('/')
-      .get(celebrate({ query: schemas.listingSchema }), validateRes(schemas.productSchema),
+      .get(celebrate({ query: schemas.listingSchema }), validateRes(schemas.productsSchema),
         (req, res, next) => this.list(req, res).catch(next))
       .post(bodyParser.json(), celebrate({ body: schemas.productSchema }),
         (req, res, next) => this.add(req, res).catch(next))
@@ -52,7 +52,7 @@ class ProductRoutes {
   }
 
   async add(req, res) {
-    const product = await this._model.addProduct({ title, desc, price  })
+    const product = await this._model.addProduct(req.body)
     res
       .status(201)
       .set('Content-Location', `/v1/api/activities/${product.id}`)

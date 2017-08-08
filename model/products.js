@@ -1,5 +1,4 @@
 const fs = require('fs')
-const boom = require('boom')
 
 class Products {
   constructor () {
@@ -32,22 +31,10 @@ class Products {
   }
 
   async getProduct(id) {
-    if(!id) {
-      throw boom.badRequest('`id` is empty!')
-    }
     return this._data.find(product => product.id === id)
   }
 
   async addProduct (product) {
-    if (!product.title) {
-      throw boom.badRequest('`title` is missing')
-    }
-    if (!product.price) {
-      throw boom.badRequest('`price` is missing')
-    }
-    if (Object.keys(product).length > 3) {
-      throw boom.badRequest(`Extra fields given: ${Object.keys(product)}`)
-    }
     const id = this._data.length + 1
     const newProduct = Object.assign({}, product, {
       id,

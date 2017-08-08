@@ -34,4 +34,21 @@ function validateRes (schema) {
   }
 }
 
-module.exports = { validateRes }
+function convertBoomErrors(err, req, res, next) {
+  if (res.headersSent) {
+    return next()
+  }
+
+  if (!err.isBoom) {
+    return next(err)
+  }
+
+  res
+    .status(err.output.statusCode)
+    .json({
+      statusCode: err.output.statusCode,
+      message: err.message
+    })
+}
+
+module.exports = { validateRes, convertBoomErrors }
